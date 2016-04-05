@@ -1,0 +1,40 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_header_device">
+
+        <PreferenceScreen
+            android:title="@string/pref_scan_devices">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="org.hidetake.blebutton"
+                android:targetClass="org.hidetake.blebutton.ScanDevicesActivity" />
+        </PreferenceScreen>
+        <EditTextPreference
+            android:defaultValue="00:00:00:00:00:00"
+            android:key="device_address"
+            android:title="@string/pref_device_address"
+            android:dialogMessage="e.g. 00:00:00:00:00:00" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_header_notifications">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="notifications_ble_button"
+            android:title="@string/pref_title_new_message_notifications" />
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:dependency="notifications_ble_button"
+            android:key="notifications_ble_button_ringtone"
+            android:ringtoneType="notification"
+            android:title="@string/pref_title_ringtone" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:dependency="notifications_ble_button"
+            android:key="notifications_ble_button_vibrate"
+            android:title="@string/pref_title_vibrate" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
