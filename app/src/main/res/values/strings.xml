@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BLE button</string>
+    <string name="title_activity_top">BLE button</string>
 </resources>
