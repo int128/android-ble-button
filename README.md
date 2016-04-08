@@ -5,6 +5,13 @@ BLE button is an app on Android for the BLE (Bluetooth Low Energy) device such a
 It can receive button events from the device and send alert to the device.
 
 
+Should work on
+--------------
+
+* Nexus 5X
+* Xperia SP (C5303)
+
+
 Not implemented yet
 -------------------
 
