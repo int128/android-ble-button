@@ -9,6 +9,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.hidetake.blebutton.MainActivity">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/alert_light_frame"
+        android:layout_centerInParent="true"
+        android:padding="48dp"
+        android:id="@+id/frame_alert">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/button_alert"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/sound"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent" />
+    </FrameLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,18 +37,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BLE status"
+        android:text="Initializing"
         android:id="@+id/text_ble_status"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-    <ImageButton
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/button_alert"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/sound"
-        android:layout_centerVertical="true"
-        android:background="@android:color/transparent" />
 
 </RelativeLayout>
