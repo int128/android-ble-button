@@ -19,7 +19,6 @@ class BleService : Service() {
 
     override fun onCreate() {
         Log.d(javaClass.simpleName, "onCreate()")
-        super.onCreate()
         bleContext = BleContext(applicationContext, bleDeviceAddress)
     }
 
@@ -35,14 +34,12 @@ class BleService : Service() {
 
     override fun onRebind(intent: Intent?) {
         Log.d(javaClass.simpleName, "onRebind()")
-        super.onRebind(intent)
     }
 
     override fun onDestroy() {
         Log.d(javaClass.simpleName, "onDestroy()")
         bleContext?.close()
         bleContext = null
-        super.onDestroy()
     }
 
 }

@@ -21,37 +21,7 @@ class MainActivity : AppCompatActivity() {
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
             Log.d("ServiceConnection", "onServiceConnected()")
             if (binder is BleService.BleServiceBinder) {
-                val bleContext = binder.bleContext
-
-                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
-                val frameAlert = findViewById(R.id.frame_alert) as FrameLayout
-                val buttonAlert = findViewById(R.id.button_alert) as ImageButton
-                val textLastTime = findViewById(R.id.text_last_time) as TextView
-                val textStatus = findViewById(R.id.text_ble_status) as TextView
-
-                buttonAlert.setOnClickListener { view ->
-                    bleContext.immediateAlert()
-                }
-
-                bleContext.onButtonPressed {
-                    vibrator.vibrate(300)
-                    textLastTime.text = SimpleDateFormat.getDateTimeInstance().format(Date())
-                }
-
-                bleContext.onConnecting {
-                    frameAlert.alpha = 0.2f
-                    buttonAlert.isEnabled = false
-                    textStatus.text = "Connecting to BLE device..."
-                }
-
-                bleContext.onIdle {
-                    frameAlert.alpha = 1.0f
-                    buttonAlert.isEnabled = true
-                    textStatus.text = "Connected to BLE device"
-                }
-
-                bleContext.connectOnFirstTime()
+                onServiceBound(binder.bleContext)
             }
         }
 
@@ -64,12 +34,46 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bindService(Intent(applicationContext, BleService::class.java), serviceConnection, BIND_AUTO_CREATE)
+        val serviceIntent = Intent(applicationContext, BleService::class.java)
+        startService(serviceIntent)
+        bindService(serviceIntent, serviceConnection, BIND_AUTO_CREATE)
+    }
+
+    fun onServiceBound(bleContext: BleContext) {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+        val frameAlert = findViewById(R.id.frame_alert) as FrameLayout
+        val buttonAlert = findViewById(R.id.button_alert) as ImageButton
+        val textLastTime = findViewById(R.id.text_last_time) as TextView
+        val textStatus = findViewById(R.id.text_ble_status) as TextView
+
+        buttonAlert.setOnClickListener { view ->
+            bleContext.immediateAlert()
+        }
+
+        bleContext.onButtonPressed {
+            vibrator.vibrate(300)
+            textLastTime.text = SimpleDateFormat.getDateTimeInstance().format(Date())
+        }
+
+        bleContext.onConnecting {
+            frameAlert.alpha = 0.2f
+            buttonAlert.isEnabled = false
+            textStatus.text = "Connecting to BLE device..."
+        }
+
+        bleContext.onIdle {
+            frameAlert.alpha = 1.0f
+            buttonAlert.isEnabled = true
+            textStatus.text = "Connected to BLE device"
+        }
+
+        bleContext.connectOnFirstTime()
     }
 
     override fun onDestroy() {
-        unbindService(serviceConnection)
         super.onDestroy()
+        unbindService(serviceConnection)
     }
 
 }
