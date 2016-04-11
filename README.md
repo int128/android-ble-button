@@ -1,5 +1,5 @@
-BLE button
-==========
+Android BLE button
+==================
 
 BLE button is an app on Android for the BLE (Bluetooth Low Energy) device such as iTag.
 It can receive button events from the device and send alert to the device.
